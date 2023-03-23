@@ -36,11 +36,17 @@ WHERE condition;
 ## Python functions
 ### CREATE 
 - def create_hero():
+    - INSERT into table a new hero with a 'name' and 'bio' with a python INPUT method
 
 - def create_trait():
+    - INSERT into abilities column with a python INPUT method
 
 
 ### READ
+- def select_all_heroes():
+    - SHOWS a list of heroes that are currently in the data table
+
+- def main_menu():
 
 
 
@@ -49,4 +55,4 @@ WHERE condition;
 
 
 ### DELETE
-- def delete():
+- def remove_hero():
