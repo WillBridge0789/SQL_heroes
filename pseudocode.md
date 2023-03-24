@@ -12,6 +12,7 @@ By default, the app should perform full CRUD operations (at least one of each Cr
 1. CREATE TABLE table_name (
         id
     ); 
+    ***may not be necessary...***
 
 2. INSERT INTO
     heroes (name, about_me, biography)
@@ -38,16 +39,17 @@ WHERE condition;
 - def create_hero():
     - INSERT into table a new hero with a 'name' and 'bio' with a python INPUT method
 
+***If extra time allowed***
 - def create_trait():
     - INSERT into abilities column with a python INPUT method
 
 
 ### READ
-- def select_all_heroes():
-    - SHOWS a list of heroes that are currently in the data table
+def show_all_heroes()
+- SHOW all heroes by id and name 
 
-- def main_menu():
-
+def select_hero()
+- SHOW hero "name", and "about_me" by input value "id number" 
 
 
 ### UPDATE

@@ -1,11 +1,5 @@
 from database.db_connection import execute_query
 
-def initiate_game():
-    start_response = input('Press ENTER to START')
-    if start_response == "":
-        print(art)
-
-
 art = """ 
       
 ███████╗ ██████╗ ██╗         ██╗  ██╗███████╗██████╗  ██████╗ ███████╗███████╗
@@ -18,12 +12,31 @@ art = """
                     
                     Welcome to Hall of Digital Justice League
   
-  1. Create a New Hero
+  1. Join our ranks
   2. Read Hero Bio
   3. Update a Hero
   4. Be a Villain. Eliminate a hero
 """
+# Game start menu showing game name with a menu list 
+def initiate_game():
+    start_response = input('Press ENTER to START')
+    if start_response == "":
+        print(art)
+        main_menu()
+        
+# Main menu options showing via "art" variable. Number input corresponds with which function will run.
+def main_menu():
+    response = input("What would you like to do first? ")
+    if response == "1":
+        input_create_hero()
+    elif response == "2":
+        input_select_hero()
+    elif response == '3':
+        print(input_update_hero())
+    elif response == '4':
+        print(input_remove_hero())
 
+# Showing all heroes in heroes table by id numbers (ascending 1 - 6+)
 def show_all_heroes():
      query = """
         SELECT name from heroes
@@ -33,10 +46,12 @@ def show_all_heroes():
          print(f"{num + 1}: {value[0]}")
      return hero_list
 
+# Shows the list of heroes and asks for user to type in a number corresponding with hero id number
 def input_select_hero():
     show_all_heroes()
     hero_pick = input('Choose a hero to get to know...')
     select_a_hero(hero_pick)
+    return_to_main_menu()
 
 def select_a_hero(pick):
      query = f"""
@@ -55,33 +70,33 @@ def select_a_hero(pick):
         {value[2]}
         {value[3]}    
         """)
+    
+# Asking for user input for a new hero's NAME, ABOUT, and BIO 
+def input_create_hero():
+    name = input('We would be honored for you to join our ranks! What is your name? ')
+    about = input('A pleasure to meet you, ' + name + '! Tell us a little about yourself. ')
+    bio = input('Thats interesting! Tell us a little about your upbringing.... ')
+    create_new_hero(name, about, bio)
+    return_to_main_menu()
 
-def main_menu():
-    response = input("What would you like to do first? ")
-    if response == '1':
-        print(create_new_hero())
-    elif response == "2":
-        input_select_hero()
-    elif response == '3':
-        print(input_update_hero())
-    elif response == '4':
-        print(input_remove_hero())
+# Creates a new hero by user input being put into the heroes table
+def create_new_hero(name, about, bio):
+    query = """
+        INSERT INTO heroes (name, about_me, biography)
+         VALUES (%s, %s, %s)
+    """
+    execute_query(query, (name, about, bio))
+    show_all_heroes()
 
-
-# input_select_hero()
-
-def hero_choice():
-    response2 = input("Which hero would you like to know about? ")
-    if response2 <= [6]:
-        print(select_a_hero())
-# hero_choice()
-
-def create_new_hero(name, bio):
-     query = """
-        INSERT INTO patients (name, bio)
-         VALUES (%s, %s)
-     """
-     execute_query(query, (name, bio))
+# If user types ENTER, it will go back to the start(main menu) OR if they press BACK, it will go 
+# back to list of heroes
+def return_to_main_menu():
+    answer = input("Press ENTER to return to the main menu OR type BACK to go back to our heroes: ")
+    if answer == "": 
+        print(art)
+        print(main_menu())
+    elif answer == "back".upper():
+        print(input_select_hero())
 
 # def remove_hero():
 #         query = """

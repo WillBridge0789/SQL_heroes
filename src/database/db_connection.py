@@ -52,7 +52,7 @@ def execute_query(query, params=None):
 #         """
 #     execute_query(query, (name, bio))
     
-# NOTE: Tuples () with only one argument need to have a trailing comma. 
+# NOTE1: Tuples () with only one argument need to have a trailing comma. 
 # NOTE2: You may remove the print statements in create_connection() and execute_query() to keep from muddying up your project.
     
 # """
